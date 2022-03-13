@@ -9,10 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.io.IOException;
 
 
-public class Controller extends AppCompatActivity implements View.OnClickListener {
+public class ControllerServerCon extends AppCompatActivity implements View.OnClickListener {
 
     private TextView matNr=findViewById(R.id.matNr);
-    private Button btn=findViewById(R.id.button2);
+    private Button btn=findViewById(R.id.sendBtn);
     private TextView serverAns=findViewById(R.id.serverAnswer);
     private TCPClient client=new TCPClient();
 
