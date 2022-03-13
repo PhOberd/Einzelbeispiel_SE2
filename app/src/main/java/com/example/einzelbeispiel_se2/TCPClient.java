@@ -1,11 +1,20 @@
 package com.example.einzelbeispiel_se2;
+
+import android.widget.TextView;
+
 import java.io.*;
 import java.net.*;
 
-public class TCPClient {
+public class TCPClient extends MainActivity implements Runnable{
+    String matNr;
+    TextView serverAnswer;
+    TCPClient(String matNr, TextView serverAnswer){
+        this.matNr=matNr;
+        this.serverAnswer=serverAnswer;
+    }
 
-    public String sendRequest(String matNr) throws IOException {
-        String modifiedMatNr;
+    public void sendRequest() throws IOException {
+        String serverInput;
 
         Socket clientSocket=new Socket("se2-isys.aau.at",53212);
 
@@ -15,10 +24,17 @@ public class TCPClient {
 
         outToServer.writeBytes(matNr+'\n');
 
-        modifiedMatNr=inFromServer.readLine();
-
+        serverInput=inFromServer.readLine();
         clientSocket.close();
-
-        return modifiedMatNr;
+        serverAnswer.setText(serverInput);
+    }
+    // runnable für Threading
+    @Override
+    public void run() {
+        try{
+            sendRequest();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
